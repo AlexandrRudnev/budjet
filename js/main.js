@@ -13,6 +13,42 @@ let btn = document.querySelectorAll('button'),
     percentValue = document.querySelector('.choose-percent');
 let money, time;
 
+for (let i = 0; i < inc.length && i < expensesItem.length && i < neobRasx.length; i++) {
+    inc[i].disabled = true;
+    expensesItem[i].disabled = true;
+    neobRasx[i].disabled = true;
+}
+sumValue.disabled = true;
+percentValue.disabled = true;
+btn[0].addEventListener('click', function () {
+    time = prompt('Введите дату в формате YYYY-MM-DD', '');
+    money = +prompt('Ваш бюджет на месяц?', '');
+
+    // while (time != (YYYY-MM-DD)) {
+    //     time = prompt('Введите дату в формате YYYY-MM-DD', '');
+    // }
+
+    while (isNaN(money) || money == '' || money == null) {
+        money = prompt('Ваш бюджет на месяц?', '');
+    }
+    aaa[0].textContent = money.toFixed(2) + ' р.';
+    appData.timeData = time;
+    appData.budget = +money;
+    appData.bud = appData.budget;
+    aaa[4].textContent = appData.bud.toFixed(2) + ' р';
+    yearValue.value = new Date(Date.parse(time)).getFullYear();
+    monthValue.value = new Date(Date.parse(time)).getMonth() + 1;
+    dayValue.value = new Date(Date.parse(time)).getDate();
+    expensesItem.disabled = false;
+    for (let i = 0; i < inc.length && i < expensesItem.length && i < neobRasx.length; i++) {
+        inc[i].disabled = false;
+        expensesItem[i].disabled = false;
+        neobRasx[i].disabled = false;
+    }
+    ddd();
+    btn[0].disabled = true;
+});
+
 let appData = {
     budget: money,
     timeData: time,
@@ -22,34 +58,7 @@ let appData = {
     savings: false
 };
 
-btn[0].addEventListener('click', function () {
-
-    time = prompt('Введите дату в формате YYYY-MM-DD', '');
-    money = +prompt('Ваш бюджет на месяц?', '');
-
-
-    // while (time != (YYYY-MM-DD)) {
-    //     time = prompt('Введите дату в формате YYYY-MM-DD', '');
-    // }
-
-    while (isNaN(money) || money == '' || money == null) {
-        money = prompt('Ваш бюджет на месяц?', '');
-    };
-    aaa[0].textContent = money.toFixed(2) + ' р.';
-    appData.timeData = time;
-    appData.budget = +money;
-    appData.bud = appData.budget;
-    aaa[4].textContent = appData.bud.toFixed(2) + ' р';
-    yearValue.value = new Date(Date.parse(time)).getFullYear();
-    monthValue.value = new Date(Date.parse(time)).getMonth() + 1;
-    dayValue.value = new Date(Date.parse(time)).getDate();
-
-    ddd();    
-});
-
 function ddd() {
-    
-
     btn[1].addEventListener('click', function () {
         btn[1].insertAdjacentHTML("beforebegin", `<input class="choose-item" type="text" placeholder="Наименование">
        <input class="choose-item" type="text" placeholder="Цена">`);
@@ -74,16 +83,28 @@ function ddd() {
                 i--;
             }
         }
+        // for (let i = 0; i < inc.length; i++) {
+        //     inc[i].disabled = true;
+        // }
+        // btn[1].disabled = true;
+        // btn[2].disabled = true;
     });
 
     checkSavings.addEventListener('input', function () {
+        
         if (appData.savings == true) {
             appData.savings = false;
+        sumValue.disabled = true;
+        percentValue.disabled = true;
         } else {
             appData.savings = true;
+            sumValue.disabled = false;
+        percentValue.disabled = false;
         }
+        
     });
 
+        
     sumValue.addEventListener('input', function () {
         if (appData.savings == true) {
             let save = +sumValue.value,
@@ -135,7 +156,11 @@ function ddd() {
                 i--;
             }
         }
-
+        // for (let i = 0; i < expensesItem.length; i++) {
+        //     expensesItem[i].disabled = true;
+        // }
+        // btn[3].disabled = true;
+        // btn[4].disabled = true;
     });
 
     btn[5].addEventListener('click', function () {
@@ -162,7 +187,11 @@ function ddd() {
                 i--;
             }
         }
-
+        // for (let i = 0; i < neobRasx.length; i++) {
+        //     neobRasx[i].disabled = true;
+        // }
+        // btn[5].disabled = true;
+        // btn[6].disabled = true;
     });
 
     btn[7].addEventListener('click', function () {
